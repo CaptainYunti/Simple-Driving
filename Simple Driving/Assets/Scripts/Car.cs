@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Car : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Car : MonoBehaviour
     [SerializeField] float acceleration = .1f;
     [SerializeField] float rotationSpeed = 200f;
 
-    int steerValue;
+    int steerValue = 0;
 
 
     void Update()
@@ -33,5 +34,13 @@ public class Car : MonoBehaviour
     public void Steer(int value)
     {
         steerValue = value;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Obstacle"))
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }
